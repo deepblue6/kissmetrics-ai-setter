@@ -6,9 +6,9 @@ import axios from "axios";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
 const RETRY_CONFIG = [
-  { model: "anthropic/claude-sonnet-4-6", delay: 0 },
-  { model: "anthropic/claude-haiku-4-5-20251001", delay: 2000 },
-  { model: "anthropic/claude-haiku-4-5-20251001", delay: 5000 },
+  { model: "anthropic/claude-opus-4-5", delay: 0 },
+  { model: "anthropic/claude-sonnet-4-6", delay: 2000 },
+  { model: "anthropic/claude-sonnet-4-6", delay: 5000 },
 ];
 
 function createProxyAgent() {
