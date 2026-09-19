@@ -1,14 +1,14 @@
 /**
- * Claude API wrapper with retry + model fallback
+ * Claude API wrapper via OpenRouter — retry + model fallback
  */
 
 import axios from "axios";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
 const RETRY_CONFIG = [
-  { model: "claude-sonnet-4-6", delay: 0 },
-  { model: "claude-haiku-4-5-20251001", delay: 2000 },
-  { model: "claude-haiku-4-5-20251001", delay: 5000 },
+  { model: "anthropic/claude-sonnet-4-6", delay: 0 },
+  { model: "anthropic/claude-haiku-4-5-20251001", delay: 2000 },
+  { model: "anthropic/claude-haiku-4-5-20251001", delay: 5000 },
 ];
 
 function createProxyAgent() {
@@ -19,13 +19,26 @@ function createProxyAgent() {
 }
 
 /**
- * Call Claude API with messages
+ * Call Claude via OpenRouter API (OpenAI-compatible format)
  * @param {Array} messages - Array of {role, content} messages
  * @param {Object} options - { system, maxTokens, temperature }
  * @returns {string|null} - Reply text or null on failure
  */
 export async function callClaude(messages, options = {}) {
   const { system, maxTokens = 300, temperature = 0.45 } = options;
+
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    console.error("[Claude] OPENROUTER_API_KEY is not set");
+    return null;
+  }
+
+  // Prepend system message to the messages array (OpenAI format)
+  const fullMessages = [];
+  if (system) {
+    fullMessages.push({ role: "system", content: system });
+  }
+  fullMessages.push(...messages);
 
   for (let attempt = 0; attempt < RETRY_CONFIG.length; attempt++) {
     const { model, delay } = RETRY_CONFIG[attempt];
@@ -38,16 +51,14 @@ export async function callClaude(messages, options = {}) {
     try {
       const axiosConfig = {
         method: "POST",
-        url: "https://api.anthropic.com/v1/messages",
+        url: "https://openrouter.ai/api/v1/chat/completions",
         headers: {
-          "x-api-key": process.env.ANTHROPIC_API_KEY,
-          "anthropic-version": "2023-06-01",
+          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
         },
         data: {
           model,
-          system,
-          messages,
+          messages: fullMessages,
           temperature,
           max_tokens: maxTokens,
         },
@@ -67,22 +78,19 @@ export async function callClaude(messages, options = {}) {
         const errorText = typeof response.data === "string" ? response.data : JSON.stringify(response.data);
         console.error(`[Claude] API error (attempt ${attempt + 1}, ${model}): ${response.status} ${errorText}`);
 
-        // Human-readable hints for common errors
         if (response.status === 401) {
-          console.error(`[Claude] ⚠️  Your ANTHROPIC_API_KEY is invalid or expired. Double-check it at https://console.anthropic.com/settings/keys`);
-        } else if (response.status === 403) {
-          console.error(`[Claude] ⚠️  Your Anthropic account may not have billing enabled. Add a payment method at https://console.anthropic.com/settings/billing`);
+          console.error(`[Claude] Your OPENROUTER_API_KEY is invalid or expired. Check it at https://openrouter.ai/keys`);
+        } else if (response.status === 402) {
+          console.error(`[Claude] OpenRouter account has insufficient credits. Top up at https://openrouter.ai/credits`);
         } else if (response.status === 429) {
-          console.error(`[Claude] ⚠️  Rate limited — too many requests. The agent will retry automatically.`);
-        } else if (response.status === 529) {
-          console.error(`[Claude] ⚠️  Anthropic API is temporarily overloaded. The agent will retry automatically.`);
+          console.error(`[Claude] Rate limited. The agent will retry automatically.`);
         }
 
         if (attempt === RETRY_CONFIG.length - 1) return null;
         continue;
       }
 
-      const text = response.data?.content?.[0]?.text?.trim();
+      const text = response.data?.choices?.[0]?.message?.content?.trim();
       if (!text) {
         console.error(`[Claude] Empty response (attempt ${attempt + 1})`);
         if (attempt === RETRY_CONFIG.length - 1) return null;

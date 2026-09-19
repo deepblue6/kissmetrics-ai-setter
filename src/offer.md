@@ -1,40 +1,39 @@
-Scrapely Design — Custom Websites That Actually Convert
+Attribution and Analytics Infrastructure for SaaS Teams
 
 Results
-- Average client sees a 2-3x increase in leads or inquiries within the first month of launching their new site
-- 94% of first impressions are design-related — a clean, modern site builds trust instantly
-- Most sites go live within 2-3 weeks from kickoff
-- Clients consistently report more inbound calls, form submissions, and online bookings after launch
+- Clients typically see a 20%+ increase in user activation within 90 days by shifting spend to channels that actually drive activated users
+- One client found 40% of paid signups never activated, reallocated budget and doubled activation in 60 days
+- Most teams discover 2-3 acquisition channels that look great on signup volume but drive almost zero activation
+- Full attribution mapping usually reveals 15-30% wasted ad spend going to low-activation channels
 
 What We Do
-We design and build custom websites for businesses that want to look legit online and turn visitors into paying customers. No templates, no cookie-cutter stuff — every site is built from scratch around your brand and your goals.
+We set up attribution and analytics infrastructure that shows SaaS teams which channels, campaigns, and content actually drive users who activate and retain, not just sign up. Think of it as the layer between your analytics tools and your growth decisions.
 
 What's Included
-- Custom design — no templates, fully tailored to your brand and industry
-- Mobile-first responsive build — looks great on every device
-- SEO fundamentals — site structure, meta tags, page speed, all baked in from day one
-- Copywriting assistance — we help write or refine your messaging so it actually converts
-- Contact forms, booking integrations, and lead capture built in
-- Basic analytics setup so you can track what's working
-- 30 days of post-launch support for tweaks and fixes
+- Full attribution audit, map every acquisition channel to activation and retention metrics
+- Channel-level activation tracking, see which sources drive users who stick vs users who bounce
+- Custom dashboards showing activation by source, cohort, and campaign
+- Integration with your existing stack (PostHog, Amplitude, Mixpanel, GA, Segment, etc.)
+- Ongoing optimization recommendations based on the data
+- Anomaly alerts when activation patterns shift
 
 How It Works
-1. We hop on a quick discovery call to understand your business, goals, and what's not working with your current site (or lack of one)
-2. We put together a design mockup within a few days — you give feedback, we refine
-3. Once approved, we build it out and launch within 2-3 weeks
-4. You get 30 days of support after launch to dial everything in
+1. Quick discovery call to understand your product, current analytics setup, and activation metrics
+2. We audit your existing tracking and map out attribution gaps (usually takes 1-2 weeks)
+3. Build dashboards and attribution models tailored to your activation funnel
+4. Deliver a clear report showing which channels drive real users vs vanity signups
+5. Ongoing support to keep attribution accurate as you scale
 
 Who This Is For
-- Business owners who don't have a website yet and need one fast
-- Companies with outdated sites that aren't generating leads
-- Founders who want a professional online presence without dealing with DIY builders
-- Service businesses (agencies, coaches, consultants, local businesses) that rely on online visibility
+- SaaS founders and growth teams spending on paid acquisition without clear activation attribution
+- Product teams with analytics tools in place but no clarity on which channels drive real users
+- Companies scaling from seed to Series A/B who need to prove channel ROI to investors
+- Teams using multiple analytics tools but still making gut-feel decisions on channel spend
 
 Pricing
-- Landing pages start around $1,500
-- Full website builds (5-10 pages) start around $3,000
-- Larger or e-commerce projects are scoped individually
-- Payment plans available
-- No long-term contracts — you pay for the build, you own the site
+- Depends on scale and complexity of your analytics stack
+- Most companies land in the $2,000-5,000/mo range
+- One-time audit projects available for teams not ready for ongoing engagement
+- No long-term contracts
 
-Book a call: https://calendly.com/your-link
+Book a call: https://app.iclosed.io/e/Kissmetrics/kissmetrics-discovery-call-o

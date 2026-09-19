@@ -46,8 +46,8 @@ const OFFER = fs.readFileSync(path.join(__dirname, "offer.md"), "utf-8");
 // ---------------------------------------------------------------------------
 const CONFIG_WARNINGS = [];
 
-if (!process.env.ANTHROPIC_API_KEY) {
-  CONFIG_WARNINGS.push("ANTHROPIC_API_KEY is missing — AI replies will fail. Get one at https://console.anthropic.com/settings/keys");
+if (!process.env.OPENROUTER_API_KEY) {
+  CONFIG_WARNINGS.push("OPENROUTER_API_KEY is missing — AI replies will fail. Get one at https://openrouter.ai/keys");
 }
 if (!SCRAPELY_API_KEY) {
   CONFIG_WARNINGS.push("SCRAPELY_API_KEY is missing — cannot fetch conversations or send DMs. Find yours in Scrapely Dashboard > Settings > API");
@@ -72,8 +72,8 @@ if (CONFIG_WARNINGS.length > 0) {
   console.log("  Need help? Open this project in Claude Code and say \"help me set this up\"\n");
 }
 
-if (!process.env.ANTHROPIC_API_KEY || !SCRAPELY_API_KEY) {
-  console.error("❌ Cannot start: ANTHROPIC_API_KEY and SCRAPELY_API_KEY are both required.\n");
+if (!process.env.OPENROUTER_API_KEY || !SCRAPELY_API_KEY) {
+  console.error("❌ Cannot start: OPENROUTER_API_KEY and SCRAPELY_API_KEY are both required.\n");
   process.exit(1);
 }
 
@@ -582,7 +582,7 @@ const server = http.createServer((req, res) => {
       status: CONFIG_WARNINGS.length === 0 ? "ok" : "needs_setup",
       service: "ai-setter-agent",
       config: {
-        anthropic_key: process.env.ANTHROPIC_API_KEY ? "set" : "MISSING",
+        openrouter_key: process.env.OPENROUTER_API_KEY ? "set" : "MISSING",
         scrapely_key: SCRAPELY_API_KEY ? "set" : "MISSING",
         calendar_link: CALENDAR_LINK ? "set" : "MISSING",
         webhook_auth: WEBHOOK_SECRETS.size > 0 ? "set" : "MISSING",
